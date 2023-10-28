@@ -1,6 +1,6 @@
-# AIHTeleBot
+# Group 9 AIHTeleBot
 
-As part of your project, you are required to implement a chatbot using Langchain. However, implementing a whole new web application may be too tedious and out-of-scope, so we have provided code to implement your code to a telegram bot instead!
+This repository taken with reference from https://github.com/zhengfeng-toh/AIHTeleBot
 
 ## What to do: 
 
