@@ -23,11 +23,13 @@ def getResponse(question: str) -> str:
 
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
     # LANGCHAIN_API_KEY = os.getenv('LANGSMITH_API_KEY')
+
     print("successfully loaded API key") 
 
     loader = PyPDFDirectoryLoader("./docs/")
     pages = loader.load()
 
+    print("successfully loaded PDFs")
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=150,
@@ -35,6 +37,8 @@ def getResponse(question: str) -> str:
     )
 
     splits = text_splitter.split_documents(pages)
+
+    print("successfully split documents")
 
     # Your experiment can start from this code block which loads the vector store into variable vectordb
     embedding = OpenAIEmbeddings()
@@ -48,6 +52,7 @@ def getResponse(question: str) -> str:
         embedding=embedding,
         persist_directory=persist_directory
     )
+    print("successfully created vector store")
 
     memory = ConversationBufferMemory(
         memory_key="chat_history",

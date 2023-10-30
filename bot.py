@@ -7,7 +7,8 @@ load_dotenv()
 
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
-bot = telebot.TeleBot("TELEGRAM_BOT_TOKEN")
+bot = telebot.TeleBot(TOKEN)
+
 bot.set_webhook()
 
 @bot.message_handler(commands=['start'])
