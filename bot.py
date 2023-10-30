@@ -8,7 +8,10 @@ load_dotenv()
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 bot = telebot.TeleBot(TOKEN)
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 bot.set_webhook()
 
 @bot.message_handler(commands=['start'])

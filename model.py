@@ -12,6 +12,13 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationalRetrievalChain
 
+load_dotenv('./.env')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+LANGCHAIN_API_KEY = os.getenv('LANGCHAIN_API_KEY')
+loader = PyPDFDirectoryLoader("./docs/")
+pages = loader.load()
+
+
 def getResponse(question: str) -> str:
     """
     A repeated implementation of the langchain code in Week 5
@@ -19,15 +26,6 @@ def getResponse(question: str) -> str:
     Refer to project requirements and Week 5 Lab if you need help
     """
 
-    load_dotenv('./.env')
-
-    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-    # LANGCHAIN_API_KEY = os.getenv('LANGSMITH_API_KEY')
-
-    print("successfully loaded API key") 
-
-    loader = PyPDFDirectoryLoader("./docs/")
-    pages = loader.load()
 
     print("successfully loaded PDFs")
     text_splitter = RecursiveCharacterTextSplitter(
@@ -62,9 +60,9 @@ def getResponse(question: str) -> str:
     )
 
     # Code below will enable tracing so we can take a deeper look into the chain
-    # os.environ["LANGCHAIN_TRACING_V2"] = "true"
-    # os.environ["LANGCHAIN_ENDPOINT"] = "https://api.langchain.plus"
-    # os.environ["LANGCHAIN_PROJECT"] = "Chatbot"
+    os.environ["LANGCHAIN_TRACING_V2"] = "true"
+    os.environ["LANGCHAIN_ENDPOINT"] = "https://api.langchain.plus"
+    os.environ["LANGCHAIN_PROJECT"] = "Chatbot"
 
     # Define parameters for retrival
     retriever=vectordb.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .5, "k": 5})
