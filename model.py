@@ -17,6 +17,16 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 LANGCHAIN_API_KEY = os.getenv('LANGCHAIN_API_KEY')
 loader = PyPDFDirectoryLoader("./docs/")
 pages = loader.load()
+print("successfully loaded PDFs")
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=150,
+    length_function=len
+)
+
+splits = text_splitter.split_documents(pages)
+
+print("successfully split documents")
 
 
 def getResponse(question: str) -> str:
@@ -26,17 +36,6 @@ def getResponse(question: str) -> str:
     Refer to project requirements and Week 5 Lab if you need help
     """
 
-
-    print("successfully loaded PDFs")
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=150,
-        length_function=len
-    )
-
-    splits = text_splitter.split_documents(pages)
-
-    print("successfully split documents")
 
     # Your experiment can start from this code block which loads the vector store into variable vectordb
     embedding = OpenAIEmbeddings()
@@ -65,7 +64,7 @@ def getResponse(question: str) -> str:
     os.environ["LANGCHAIN_PROJECT"] = "Chatbot"
 
     # Define parameters for retrival
-    retriever=vectordb.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .5, "k": 5})
+    retriever=vectordb.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": .5, "k": 2})
 
     # Define llm model
 
