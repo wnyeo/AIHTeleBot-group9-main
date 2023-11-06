@@ -8,10 +8,6 @@ load_dotenv()
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 bot = telebot.TeleBot(TOKEN)
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 bot.set_webhook()
 
 @bot.message_handler(commands=['start'])
@@ -21,7 +17,7 @@ def start(message):
     """
     try:
         # Start bot introduction
-        start_message = "Hello! Ask me anything about life in Singapore, or if you need help!"
+        start_message = "Hello! Ask me anything about Health Serve or interacting with migrant workers. I will help to answer your queries as much as I can!"
         bot.send_message(message.chat.id, start_message)
 
     except Exception as e:

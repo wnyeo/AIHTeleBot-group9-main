@@ -71,7 +71,7 @@ def getResponse(question: str) -> str:
     llm_name = "gpt-3.5-turbo-16k"
     llm = ChatOpenAI(model_name=llm_name, temperature=0)
     # Define template prompt
-    template = """You are a friendly chatbot that helps to answer queries of volunteers in Singapore.
+    template = """You are a friendly chatbot that helps to answer queries of volunteers serving migrant workers in Singapore.
     Use the following pieces of context to answer the question at the end.
     {context}
     Question: {question}
