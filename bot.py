@@ -17,7 +17,7 @@ def start(message):
     """
     try:
         # Start bot introduction
-        start_message = "Hello! Ask me anything about Health Serve or interacting with migrant workers. I will help to answer your queries as much as I can!"
+        start_message = "Hello! Ask me anything about HealthServe or interacting with migrant workers. I will help to answer your queries as much as I can! \n \n 你好！您可以向我询问有关 HealthServe 或与外籍员工互动的任何问题。我会尽我所能帮助解答您的疑问。"
         bot.send_message(message.chat.id, start_message)
 
     except Exception as e:
@@ -32,10 +32,9 @@ def send_text(message):
 
 def main():
     """Runs the Telegram Bot"""
-    print('Loading configuration...') # Perhaps an idea on what you may want to change (optional)
-    print('Successfully loaded! Starting bot...')
+    print('Loading the configurations...') 
+    print('Successfully loaded! Starting bot... Ready to serve!')
     bot.infinity_polling()
-
 
 if __name__ == '__main__':
     main()
