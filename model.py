@@ -18,6 +18,7 @@ LANGCHAIN_API_KEY = os.getenv('LANGCHAIN_API_KEY')
 loader = PyPDFDirectoryLoader("./docs/")
 pages = loader.load()
 print("successfully loaded PDFs")
+
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000,
     chunk_overlap=150,
@@ -28,29 +29,22 @@ splits = text_splitter.split_documents(pages)
 
 print("successfully split documents")
 
+embedding = OpenAIEmbeddings()
+
+persist_directory = './docs/vectordb'
+
+# Perform embeddings and store the vectors
+vectordb = Chroma.from_documents(
+    documents=splits,
+    embedding=embedding,
+    persist_directory=persist_directory
+)
+print("successfully created vector store")
 
 def getResponse(question: str) -> str:
-    """
-    A repeated implementation of the langchain code in Week 5
-    This code is purposely built to be inefficient! 
-    Refer to project requirements and Week 5 Lab if you need help
-    """
 
-
-    # Your experiment can start from this code block which loads the vector store into variable vectordb
-    embedding = OpenAIEmbeddings()
-
-    # Reference https://github.com/hwchase17/chroma-langchain/blob/master/persistent-qa.ipynb
-    persist_directory = './docs/vectordb'
-
-    # Perform embeddings and store the vectors
-    vectordb = Chroma.from_documents(
-        documents=splits,
-        embedding=embedding,
-        persist_directory=persist_directory
-    )
-    print("successfully created vector store")
-
+    print(f"Received question: {question}")
+    
     memory = ConversationBufferMemory(
         memory_key="chat_history",
         return_messages=True,
